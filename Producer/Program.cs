@@ -24,14 +24,7 @@ namespace Producer
                 Message message = new Message("Hello AMQP");
                 SenderLink sender = new SenderLink(session, "sender-link", "q1");
                 await sender.SendAsync(message);
-
-                //string queueName = "q1";
-                //Connection connection = new Connection(new Address("amqp://admin:admin@localhost:5672"));
-                //Session session = new Session(connection);
-                //SenderLink sender = new SenderLink(session, "sender", queueName);
-                //Message message = new Message("Hello World");
-                //sender.Send(message);
-                //connection.Close();
+                
 
             }
             catch (Exception e)
