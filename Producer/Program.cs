@@ -8,12 +8,12 @@ namespace Producer
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Producer Started");
-            CommunicateToBrokerAsync();
+            Console.WriteLine("Consumer Started");
+            Consumer();
             Console.ReadLine();
         }
 
-        private static async void CommunicateToBrokerAsync()
+        private static async void Consumer()
         {
             try
             {
@@ -21,10 +21,12 @@ namespace Producer
                 //Connection connection = await Connection.Factory.CreateAsync(address);
                 Connection connection = new Connection(new Address("amqp://admin:admin@localhost:5672"));
                 Session session = new Session(connection);
-                Message message = new Message("Hello AMQP");
-                SenderLink sender = new SenderLink(session, "sender-link", "q1");
-                await sender.SendAsync(message);
-                
+
+                ReceiverLink receiver = new ReceiverLink(session, "receiver-link", "q1");
+                Message message = await receiver.ReceiveAsync();
+                Console.WriteLine(message.Body.ToString());
+                receiver.Accept(message);
+
 
             }
             catch (Exception e)
