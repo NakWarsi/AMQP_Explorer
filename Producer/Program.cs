@@ -15,7 +15,8 @@ namespace Producer
                 Address address = new Address("amqp://admin:admin@localhost:5672");
                 Connection connection = new Connection(new Address("amqp://admin:admin@localhost:5672"));
                 Session session = new Session(connection);
-                SenderLink sender = new SenderLink(session, "sender-link", "q1");
+                //SenderLink sender = new SenderLink(session, "sender-link", "q1");
+                SenderLink sender = new SenderLink(session, "sender-link", "topic://q1");
 
                 while (true)
                 {
